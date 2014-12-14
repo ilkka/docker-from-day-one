@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Docker from day one</title>
+    <link rel="icon" type="image/png" href="img/whale.png" />
+    <meta name="description" content="Webbisauna 2014 – Docker from day one">
+    <meta name="author" content="Ilkka Laukkanen">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/futurice.css" id="theme">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background="img/bg01.png" class="futurice-front1">
+          <img class="futulogo" src="img/futulogo.png">
+          <h1>Docker from day one</h1>
+          Webbisauna 2014<br/>
+          @ilkkalaukkanen / github.com/ilkka
+          <img id="swimming-whale" src="img/whalebig.png"/>
+          <style>
+          #swimming-whale {
+            position: absolute;
+            width: 10vw;
+            height: dfauto;
+            top: -5vh;
+            -webkit-animation: swim 20s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+          }
+
+          @-webkit-keyframes swim {
+            from {
+              left: 100vw;
+            }
+            to {
+              left: -60vw;
+            }
+          }
+          </style>
+          <aside class="notes">
+              <ul>
+                  <li>gonna talk about docker, what it is and why you should adopt it now</li>
+                  <li>where to find me</li>
+              </ul>
+          </aside>
+        </section>
+
+        <section data-background="img/bg02.png" class="futurice-front1">
+            <h2>Docker?</h2>
+            <aside class="notes">
+                <ul>
+                    <li>So who knows what docker is?</li>
+                    <li>technically: combo of kernel features, cgroups and namespaces</li>
+                    <li>conceptually: you put your software in a box and it can then be put anywhere</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section data-background="img/cargo.jpg" class="futurice-front1">
+            <aside class="notes">
+                if you think of software as products that you build, the old way
+                to ship is something like this<br/>
+                labor intensive etc
+            </aside>
+        </section>
+
+        <section data-background="img/containership.jpg" class="futurice-front1">
+            <aside class="notes">
+                <ul>
+                    <li>the new way</li>
+                    <li>It's moveable</li>
+                    <li>it's not a VM</li>
+                    <li>it's lighter than a VM</li>
+                    <li>same code path as code for host</li>
+                    <li>less isolation than with a vm</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section data-background="img/bg06.png" class="futurice-front1">
+            <h2 style="color:white">The Matrix from Hell</h2>
+            <ul>
+                <li>Your product has N parts</li>
+                <li>It must run on the developer's laptop</li>
+                <li>...and on the QA server</li>
+                <li>...and in this public cloud</li>
+                <li>...and on that private cloud</li>
+                <li>...and on a contributor's machine</li>
+                <li>N parts x M contexts = big problem</li>
+            </ul>
+
+            <aside class="notes">
+                <ul>
+                    <li>ok but what techical problem does it solve?</li>
+                    <li>the problem of standardisation</li>
+                    <li>(run thru the bullets here)</li>
+                    <li>the very powerful principle of least surprise</li>
+                    <li>one universal interface</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section data-background="img/bg03.png" class="futurice-front1">
+            <h2 style="color:white">Ok but why do I care?</h2>
+            <ul>
+                <li>Ship and run anywhere</li>
+                <li>With all dependencies</li>
+                <li>With identical dev & prod envs</li>
+                <li>Store, redeploy, rollback, always the same</li>
+            </ul>
+            <aside class="notes">
+                <ul>
+                    <li>it can be run anywhere and everyone knows how to run it</li>
+                    <li>you can bridge public cloud and private cloud</li>
+                    <li>same environment in prod and dev</li>
+                    <li>phoenix deployment, no trash</li>
+                    <li>repeatable deploys</li>
+                    <li>no apt-get, npm installs</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section data-background="img/bg04.png" class="futurice-front1">
+            <h2>Docker on the backend</h2>
+
+            <div style="position:relative;width:100%;height:100%">
+                <img class="fragment current-visible" src="img/backend_arch1.png"/>
+                <img style="position:absolute;left:0" class="fragment current-visible" src="img/backend_arch2.png"/>
+                <img style="position:absolute;left:0" class="fragment current-visible" src="img/backend_arch3.png"/>
+            </div>
+
+            <aside class="notes">
+                <ul>
+                    <li>base case</li>
+                    <li>compare to uberjar</li>
+                    <li>build it, push it, always the same, contained</li>
+                    <li>another more generic type of binary package</li>
+                    <li>portability and repeatable deployments</li>
+                    <li>linking and scaling</li>
+                    <li>mention databases</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section data-background="img/bg08.png" class="futurice-front1">
+            <h2 style="color:white">Demo time!</h2>
+            <img src="img/fingers_crossed.png" style="background:none">
+        </section>
+
+        <section data-background="img/bg05.png" class="futurice-front1">
+            <h2 style="color:white">Docker on the frontend</h2>
+
+            <div style="position:relative;width:100%;height:100%">
+                <img class="fragment current-visible" src="img/frontend_process1.png"/>
+                <img style="position:absolute;left:0" class="fragment current-visible" src="img/frontend_process2.png"/>
+                <img style="position:absolute;left:0" class="fragment current-visible" src="img/frontend_process3.png"/>
+            </div>
+
+            <aside class="notes">
+                <ul>
+                    <li>what can docker do for you?</li>
+                    <li>environment close to prod</li>
+                    <li>e.g. serve with nginx with same cfg</li>
+                    <li>no surprises</li>
+                    <li>idea: standardised versioned builder</li>
+                    <li>no npm woes</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section data-background="img/bg08.png" class="futurice-front1">
+            <h2 style="color:white">Demo time!</h2>
+            <img src="img/fingers_crossed.png" style="background:none">
+        </section>
+
+        <section data-background="img/bg07.png" class="futurice-front1">
+            <h2>Thanks! Questions?</h2>
+            <p>@ilkkalaukkanen</p>
+            <p>github.com/ilkka</p>
+        </section>
+
+        <!--
+        -->
+
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'linear',
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+</html>

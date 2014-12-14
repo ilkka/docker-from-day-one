@@ -1,0 +1,4 @@
+static/bundle.*
+static/images
+node_modules
+static

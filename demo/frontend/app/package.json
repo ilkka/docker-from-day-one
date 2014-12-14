@@ -1,0 +1,39 @@
+{
+  "name": "my-silly-app",
+  "version": "1.2.3",
+  "private": true,
+  "dependencies": {
+    "browserify": "~2.35.2",
+    "uglifyjs": "~2.3.6"
+  },
+  "devDependencies": {
+    "autoless": "^0.1.6",
+    "catw": "~0.0.1",
+    "express": "^4.10.4",
+    "imagemin": "^3.1.0",
+    "less": "^2.1.1",
+    "livereload": "^0.3.4",
+    "onchange": "0.0.2",
+    "react": "^0.12.1",
+    "reactify": "^0.17.1",
+    "tap": "~0.4.4",
+    "uglify-js": "^2.4.15",
+    "watchify": "~0.1.0"
+  },
+  "scripts": {
+    "build-js": "browserify -t reactify js/main.js | uglifyjs -mc > static/bundle.js",
+    "build-js-dbg": "browserify -d -t reactify js/main.js -o static/bundle.js",
+    "build-css": "lessc less/main.less > static/main.css",
+    "build": "npm run build-js && npm run build-css && npm run images",
+    "build-dbg": "npm run build-js-dbg && npm run build-css && npm run images",
+    "watch-js": "watchify -d -t reactify js/main.js -o static/bundle.js -dv & livereload .",
+    "watch-css": "autoless less static",
+    "watch": "npm run watch-js & npm run watch-css & npm run watch-images & npm run post-js",
+    "post-js": "onchange static/bundle.js -- npm test",
+    "start": "npm run build && node server.js",
+    "test": "tap test/*.js",
+    "start-dev": "npm run watch & npm run build-dbg && node server.js",
+    "images": "imagemin images/* images/**/* static/images",
+    "watch-images": "onchange images/**/* -- npm run images"
+  }
+}
